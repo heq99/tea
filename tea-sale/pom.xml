@@ -10,27 +10,8 @@
   <properties>
   </properties>
  
- <!-- 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.jboss.bom</groupId>
-        <artifactId>jboss-javaee-6.0-with-tools</artifactId>
-        <version>1.0.7.Final</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
- -->  
   <dependencies>
- <!-- 
-    <dependency>
-      <groupId>org.jboss.spec</groupId>
-      <artifactId>jboss-javaee-all-7.0</artifactId>
-      <version>1.0.2.Final</version>
-    </dependency>
- -->    
+
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-web-api</artifactId>
@@ -48,23 +29,34 @@
       <artifactId>hibernate-entitymanager</artifactId>
       <version>3.4.0.GA</version>
     </dependency>
+    
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <version>1.4.185</version>
     </dependency>
+    
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.3.2</version>
+    </dependency>
+    
     <dependency>
     <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.1.2</version>
     </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
   </dependencies>
+  
   <build>
     <finalName>tea-sale</finalName>
     <plugins>

@@ -6,6 +6,7 @@
         </encoder> 
     </appender>
     <logger name="javax.faces.webapp" level="DEBUG" /> 
+    <logger name="qianghe" level="DEBUG" />
     <root level="DEBUG"> 
         <appender-ref ref="STDOUT" /> 
     </root> 

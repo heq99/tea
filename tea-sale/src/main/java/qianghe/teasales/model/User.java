@@ -6,11 +6,14 @@
 package qianghe.teasales.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +22,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "USER")
+@NamedQueries({
+	@NamedQuery(name = "loginUser", query = "SELECT u FROM User u WHERE u.login=:username AND u.password=:password")
+})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

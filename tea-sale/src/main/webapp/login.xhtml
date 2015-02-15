@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    <h:head>
+    	<h:outputStylesheet library="css" name="home.css" />
+        <title>JSF 2.0 Hello World</title>
+    </h:head>
+    <h:body>
+        <div><h:graphicImage value="#{resource['images:logo.png']}" /></div>
+    	<h3>之乎者也</h3>
+
+		<div id="errorMessage">
+			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+		</div>    	
+    	<div id="loginForm" class="loginForm">
+	    	<h:form>
+	    		<h:panelGrid id="loginGrid" columns="2" cellpadding="5">
+	    			<p:outputLabel for="username" value="用户名：" />
+	    			<p:inputText id="username" value="#{userSessionBean.username}" required="true" />
+	    			
+	    			<p:outputLabel for="password" value="密码：" />
+	    			<p:inputText id="password" value="#{userSessionBean.password}" required="true" />
+	    		</h:panelGrid>
+	    		<p:commandButton id="submitButton" value="登录" action="#{userSessionBean.login}" update="loginGrid" /> 
+    		</h:form>
+    	</div>
+    	
+    </h:body>
+</html>
