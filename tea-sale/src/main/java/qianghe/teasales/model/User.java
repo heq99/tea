@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,6 +42,10 @@ public class User implements Serializable {
     
     @Column(name = "NAME", length = 32)
     private String name;
+    
+    @Column(name= "ROLE", length = 20)
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     public Long getId() {
         return id;
@@ -73,7 +79,15 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @Override
+    public UserRole getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

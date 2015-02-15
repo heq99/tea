@@ -1,0 +1,12 @@
+body {
+	/* background: url("#{resource['images:background.jpg']}")  no-repeat fixed center; */ 
+}
+
+label.loginFormLabel {
+	color: #B4886B;
+	font-weight: bold;
+	display: block;
+	width: 80px;
+}
+label:after { content: ": " }
+

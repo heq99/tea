@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import qianghe.teasales.model.User;
+import qianghe.teasales.model.UserRole;
 
 @Stateless
 public class UserDao extends AbstractDao {
@@ -41,6 +42,7 @@ public class UserDao extends AbstractDao {
 			user.setLogin("admin");
 			user.setName("≥¨º∂”√ªß");
 			user.setPassword("password");
+			user.setUserRole(UserRole.ADMIN);
 			//em.getTransaction().begin();
 			em.persist(user);
 			//em.getTransaction().commit();

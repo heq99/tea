@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+ 	<h:outputStylesheet library="css" name="main.css" />
+  	<link href="#{resource['images:favicon.jpg']}" rel="shortcut icon" type="image/x-icon" />
+    <title>知乎者也</title>
+	<ui:insert name="head">
+	</ui:insert>
+</h:head> 
+<h:body>
+
+	<p:layout>
+		<p:layoutUnit position="north" resizable="false">
+		    <ui:insert name="header">
+		    	<ui:include src="/components/header.xhtml" />
+    		</ui:insert>
+		 	<ui:insert name="menuBar">
+		 		<ui:include src="/components/menuBar.xhtml" />
+ 			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<ui:insert name="mainContent">
+				Main Content
+			</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="south">
+			<ui:insert name="footer">
+				<ui:include src="/components/footer.xhtml" />
+			</ui:insert>
+		</p:layoutUnit>
+	</p:layout>
+</h:body> 
+</html>

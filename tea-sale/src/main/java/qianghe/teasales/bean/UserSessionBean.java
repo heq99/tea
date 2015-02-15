@@ -1,11 +1,12 @@
 package qianghe.teasales.bean;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,7 +15,9 @@ import qianghe.teasales.model.User;
 
 @ManagedBean
 @SessionScoped
-public class UserSessionBean {
+public class UserSessionBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Inject
 	private UserManager userManager;
@@ -37,7 +40,7 @@ public class UserSessionBean {
 					.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "登录错误", "找不到对应的用户名和密码！"));
 				return "login";
 			} else {
-				return "mainPage";
+				return "mainPage?faces-redirect=true";
 			}
 		}
 	}

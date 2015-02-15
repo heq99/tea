@@ -7,12 +7,12 @@
       xmlns:p="http://primefaces.org/ui">
  
     <h:head>
-    	<h:outputStylesheet library="css" name="home.css" />
-        <title>JSF 2.0 Hello World</title>
+    	<h:outputStylesheet library="css" name="login.css" />
+    	<link href="#{resource['images:favicon.jpg']}" rel="shortcut icon" type="image/x-icon" />
+        <title>知乎者也</title>
     </h:head>
     <h:body>
         <div><h:graphicImage value="#{resource['images:logo.png']}" /></div>
-    	<h3>之乎者也</h3>
 
 		<div id="errorMessage">
 			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
@@ -20,13 +20,12 @@
     	<div id="loginForm" class="loginForm">
 	    	<h:form>
 	    		<h:panelGrid id="loginGrid" columns="2" cellpadding="5">
-	    			<p:outputLabel for="username" value="用户名：" />
+	    			<p:outputLabel for="username" value="用户名" styleClass="loginFormLabel" />
 	    			<p:inputText id="username" value="#{userSessionBean.username}" required="true" />
-	    			
-	    			<p:outputLabel for="password" value="密码：" />
+	    			<p:outputLabel for="password" value="密码" styleClass="loginFormLabel" />
 	    			<p:inputText id="password" value="#{userSessionBean.password}" required="true" />
 	    		</h:panelGrid>
-	    		<p:commandButton id="submitButton" value="登录" action="#{userSessionBean.login}" update="loginGrid" /> 
+	    		<p:commandButton id="submitButton" value="登录" action="#{userSessionBean.login}" update="loginGrid" />
     		</h:form>
     	</div>
     	
