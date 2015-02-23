@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-
 <html xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -12,19 +11,19 @@
           
             <p:menubar>
                 <p:submenu label="销售单">
-                    <p:menuitem value="开新销售单" url="newInvoice" />
-                    <p:menuitem value="查询销售单" url="queryInvoices" />
+                    <p:menuitem value="开新销售单" action="newInvoice" />
+                    <p:menuitem value="查询销售单" action="searchInvoices" />
                 </p:submenu>
                 <p:submenu label="报表">
-                    <p:menuitem value="客户消费汇总" url="sumByCustomer" />
-                    <p:menuitem value="客户消费明细" url="customerDetails" />
+                    <p:menuitem value="客户消费汇总" action="reportCustomerSummary" />
+                    <p:menuitem value="客户消费明细" action="reportCustomerDetails" />
                 </p:submenu>
                 <p:submenu label="管理">
-                    <p:menuitem value="产品管理" url="manageProducts" />
-                    <p:menuitem value="用户管理" url="manageUsers" />
+                    <p:menuitem value="产品管理" action="manageProducts" />
+                    <p:menuitem value="用户管理" action="manageUsers" />
                 </p:submenu>
-                <f:facet name="logout">
-                    <p:commandButton value="退出" action="userSessionBean.logout" />
+                <f:facet name="options">
+                    <p:commandButton id="logoutButton" value="退出" action="#{userSessionBean.logout}" />
                 </f:facet>
             </p:menubar>
         </h:form>

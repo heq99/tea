@@ -44,6 +44,11 @@ public class UserSessionBean implements Serializable {
 			}
 		}
 	}
+	
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		return "login?faces-redirect=ture";
+	}
 
 	public String getUsername() {
 		return username;

@@ -23,7 +23,7 @@
 	    			<p:outputLabel for="username" value="用户名" styleClass="loginFormLabel" />
 	    			<p:inputText id="username" value="#{userSessionBean.username}" required="true" />
 	    			<p:outputLabel for="password" value="密码" styleClass="loginFormLabel" />
-	    			<p:inputText id="password" value="#{userSessionBean.password}" required="true" />
+	    			<p:password id="password" value="#{userSessionBean.password}" required="true" />
 	    		</h:panelGrid>
 	    		<p:commandButton id="submitButton" value="登录" action="#{userSessionBean.login}" update="loginGrid" />
     		</h:form>

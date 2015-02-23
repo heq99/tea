@@ -4,35 +4,39 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"> 
-
 <h:head>
  	<h:outputStylesheet library="css" name="main.css" />
   	<link href="#{resource['images:favicon.jpg']}" rel="shortcut icon" type="image/x-icon" />
     <title>知乎者也</title>
-	<ui:insert name="head">
+	<ui:insert name="htmlHead">
 	</ui:insert>
 </h:head> 
+
+<f:view>
+
 <h:body>
 
-	<p:layout>
-		<p:layoutUnit position="north" resizable="false">
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="159" resizable="false" styleClass="noBorder">
 		    <ui:insert name="header">
 		    	<ui:include src="/components/header.xhtml" />
     		</ui:insert>
+		</p:layoutUnit>
+		<p:layoutUnit position="center" styleClass="noBorder">
 		 	<ui:insert name="menuBar">
 		 		<ui:include src="/components/menuBar.xhtml" />
  			</ui:insert>
-		</p:layoutUnit>
-		<p:layoutUnit position="center">
 			<ui:insert name="mainContent">
 				Main Content
 			</ui:insert>
 		</p:layoutUnit>
-		<p:layoutUnit position="south">
+		<p:layoutUnit position="south" size="138" resizable="false" styleClass="noBorder">
 			<ui:insert name="footer">
 				<ui:include src="/components/footer.xhtml" />
 			</ui:insert>
 		</p:layoutUnit>
 	</p:layout>
-</h:body> 
+</h:body>
+
+</f:view> 
 </html>
