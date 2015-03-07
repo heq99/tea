@@ -1,20 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.com/ui">
-
-	<ui:composition template="/templates/mainTemplate.xhtml">
-		<ui:define name="mainContent">
-			<p:layout>
-				<p:layoutUnit position="west" size="250" styleClass="noBorder">
+<!DOCTYPE html>
+<ui:composition template="/templates/mainTemplate.xhtml"
+   		xmlns="http://www.w3.org/1999/xhtml"
+   		xmlns:f="http://xmlns.jcp.org/jsf/core"
+   		xmlns:h="http://xmlns.jcp.org/jsf/html"
+   		xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+   		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+     		xmlns:p="http://primefaces.org/ui">
+	<ui:define name="mainContent">
+		<p:layout>
+			<p:layoutUnit position="west" size="250">
+				<ui:insert name="leftHeader">
+					<p>Header</p>
+				</ui:insert>
+				<ui:insert name="leftNavigation">
 					<p>Left Nav</p>
-				</p:layoutUnit>
-				<p:layoutUnit position="center" styleClass="noBorder">
+				</ui:insert>
+			</p:layoutUnit>
+			<p:layoutUnit position="center">
+				<ui:insert name="content">
 					<p>Main</p>
-				</p:layoutUnit>
-			</p:layout>
-		</ui:define>
-	</ui:composition>
-</html>
+				</ui:insert>
+			</p:layoutUnit>
+		</p:layout>
+	</ui:define>
+</ui:composition>

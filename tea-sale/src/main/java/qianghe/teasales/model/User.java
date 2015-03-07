@@ -23,7 +23,7 @@ import javax.persistence.Table;
  * @author Qiang He
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 @NamedQueries({
 	@NamedQuery(name = "loginUser", query = "SELECT u FROM User u WHERE u.login=:username AND u.password=:password")
 })

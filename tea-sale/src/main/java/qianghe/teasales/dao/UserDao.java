@@ -5,8 +5,6 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 
 import qianghe.teasales.model.User;
 import qianghe.teasales.model.UserRole;
@@ -14,11 +12,8 @@ import qianghe.teasales.model.UserRole;
 @Stateless
 public class UserDao extends AbstractDao {
 	
-	@PersistenceContext(type = PersistenceContextType.TRANSACTION)
-	private EntityManager em;
-
 	public User loginUser(String username, String password) throws NoResultException {
-		List<User> users = em.createNamedQuery("loginUser", User.class)
+		List<User> users = getEntityManager().createNamedQuery("loginUser", User.class)
 			.setParameter("username", username)
 			.setParameter("password", password)
 			.getResultList();
@@ -33,6 +28,7 @@ public class UserDao extends AbstractDao {
 	 * This method is risky, it needs to be removed. 
 	 */
 	public void checkOrCreateAdminUser() {
+		EntityManager em = getEntityManager();
 		List<User> users = em.createQuery("SELECT u FROM User u WHERE u.login=:adminName", User.class)
 				.setParameter("adminName", "admin").getResultList();
 		if (users != null && users.size() == 1) {
@@ -40,12 +36,12 @@ public class UserDao extends AbstractDao {
 		} else {
 			User user = new User();
 			user.setLogin("admin");
-			user.setName("≥¨º∂”√ªß");
+			user.setName("Á≥ªÁªüÁÆ°ÁêÜÂëò");
 			user.setPassword("password");
 			user.setUserRole(UserRole.ADMIN);
-			//em.getTransaction().begin();
+			
 			em.persist(user);
-			//em.getTransaction().commit();
+			  
 		}
 	}
 		

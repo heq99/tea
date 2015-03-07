@@ -7,6 +7,7 @@ package qianghe.teasales.model;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +16,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +27,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PRODUCT")
+@NamedQueries({
+	@NamedQuery(name = "Product.getAllProducts", query = "SELECT p FROM Product p"),
+	@NamedQuery(name = "Product.getDistinctProductNames", query = "SELECT DISTINCT p.shortName FROM Product p"),
+	@NamedQuery(name = "Product.getProductsByName", query = "SELECT p FROM Product p WHERE p.shortName = :prodName")
+})
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,26 +48,20 @@ public class Product implements Serializable {
     @Column(name = "LONG_NAME", length = 1024)
     private String longName;
     
-    @ManyToMany
-    @JoinTable(
-        name="PRODUCT_LEVEL_MAPPING",
-        joinColumns={@JoinColumn(name="PRODUCT_ID", referencedColumnName="ID")},
-        inverseJoinColumns={@JoinColumn(name="LEVEL_ID", referencedColumnName="ID")})
-    private List<ProductLevel> productLevels;
+    @Column(name = "ACTIVE")
+    private Boolean active;
     
-    @ManyToMany
-    @JoinTable(
-        name="PRODUCT_UNIT_MAPPING",
-        joinColumns={@JoinColumn(name="PRODUCT_ID", referencedColumnName="ID")},
-        inverseJoinColumns={@JoinColumn(name="UNIT_ID", referencedColumnName="ID")})
-    private List<ProductUnit> productUnits;
+    @ManyToOne
+    @JoinColumn(name="PRODUCT_LEVEL_ID")
+    private ProductLevel productLevel;
     
-    @ManyToMany
-    @JoinTable(
-        name="PRODUCT_SPEC_MAPPING",
-        joinColumns={@JoinColumn(name="PRODUCT_ID", referencedColumnName="ID")},
-        inverseJoinColumns={@JoinColumn(name="SPEC_ID", referencedColumnName="ID")})
-    private List<ProductSpec> productSpecs;
+    @ManyToOne
+    @JoinColumn(name="PRODUCT_UNIT_ID")
+    private ProductUnit productUnit;
+    
+    @ManyToOne
+    @JoinColumn(name="PRODUCT_SPEC_ID")
+    private ProductSpec productSpec;
     
     @Column(name = "PRICE")
     private Double price;
@@ -95,31 +98,40 @@ public class Product implements Serializable {
         this.longName = longName;
     }
 
-    public List<ProductLevel> getProductLevels() {
-        return productLevels;
-    }
+    
+    public Boolean getActive() {
+		return active;
+	}
 
-    public void setProductLevels(List<ProductLevel> productLevels) {
-        this.productLevels = productLevels;
-    }
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 
-    public List<ProductUnit> getProductUnits() {
-        return productUnits;
-    }
+    public ProductLevel getProductLevel() {
+		return productLevel;
+	}
 
-    public void setProductUnits(List<ProductUnit> productUnits) {
-        this.productUnits = productUnits;
-    }
+	public void setProductLevel(ProductLevel productLevel) {
+		this.productLevel = productLevel;
+	}
 
-    public List<ProductSpec> getProductSpecs() {
-        return productSpecs;
-    }
+	public ProductUnit getProductUnit() {
+		return productUnit;
+	}
 
-    public void setProductSpecs(List<ProductSpec> productSpecs) {
-        this.productSpecs = productSpecs;
-    }
+	public void setProductUnit(ProductUnit productUnit) {
+		this.productUnit = productUnit;
+	}
 
-    public Double getPrice() {
+	public ProductSpec getProductSpec() {
+		return productSpec;
+	}
+
+	public void setProductSpec(ProductSpec productSpec) {
+		this.productSpec = productSpec;
+	}
+
+	public Double getPrice() {
         return price;
     }
 

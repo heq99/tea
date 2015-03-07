@@ -22,7 +22,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PRODUCT_LEVEL")
 @NamedQueries( {
-    @NamedQuery(name = "ProductLevel.findAllProductLevels", query = "SELECT p FROM ProductLevel p")
+    @NamedQuery(name = "ProductLevel.getAllProductLevels", query = "SELECT p FROM ProductLevel p"),
+    @NamedQuery(name = "ProductLevel.getProductLevelByName", query = "SELECT p FROM ProductLevel p WHERE p.name = :name")
 } )
 public class ProductLevel implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"> 
 <h:head>
  	<h:outputStylesheet library="css" name="main.css" />
@@ -16,26 +18,29 @@
 
 <h:body>
 
+    <p:growl id="messages" />
+
 	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="159" resizable="false" styleClass="noBorder">
+		<p:layoutUnit position="north" size="172" resizable="false" gutter="0">
 		    <ui:insert name="header">
 		    	<ui:include src="/components/header.xhtml" />
     		</ui:insert>
 		</p:layoutUnit>
-		<p:layoutUnit position="center" styleClass="noBorder">
-		 	<ui:insert name="menuBar">
-		 		<ui:include src="/components/menuBar.xhtml" />
- 			</ui:insert>
+		<p:layoutUnit position="center" gutter="0">
 			<ui:insert name="mainContent">
 				Main Content
 			</ui:insert>
 		</p:layoutUnit>
-		<p:layoutUnit position="south" size="138" resizable="false" styleClass="noBorder">
+		<p:layoutUnit position="south" size="110" resizable="false" gutter="0">
 			<ui:insert name="footer">
 				<ui:include src="/components/footer.xhtml" />
 			</ui:insert>
 		</p:layoutUnit>
 	</p:layout>
+	
+	<ui:insert name="dialogs">
+	</ui:insert>
+	
 </h:body>
 
 </f:view> 

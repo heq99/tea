@@ -1,7 +1,7 @@
 package qianghe.teasales.manager;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
 import qianghe.teasales.dao.UserDao;
 import qianghe.teasales.model.User;
 
-@Named
-public class UserManager {
+@Stateless
+public class UserService {
 
-	private static Logger logger = LoggerFactory.getLogger(UserManager.class);
+	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
 	@Inject
 	private UserDao userDao;

@@ -2,42 +2,48 @@ package qianghe.teasales.bean;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import qianghe.teasales.manager.UserManager;
+import qianghe.teasales.manager.UserService;
 import qianghe.teasales.model.User;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class UserSessionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private UserManager userManager;
+	private UserService userService;
 
-	private User user = new User();
+	private User user;
 	
 	private String username;
 	
 	private String password;
 	
+	@PostConstruct
+	public void init() {
+		System.out.print("...\n");
+	}
+	
 	public String login() {
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
 			FacesContext.getCurrentInstance()
-				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "µÇÂ¼´íÎó", "ÓÃ»§ÃûºÍÃÜÂë²»ÄÜÎª¿Õ£¡"));
+				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ç™»å½•é”™è¯¯", "ç”¨æˆ·åæˆ–å¯†ç ä¸èƒ½ä¸ºç©ºï¼"));
 			return "login";
 		} else {
-			user = userManager.loginUser(username, password);
+			user = userService.loginUser(username, password);
 			if (user == null) {
 				FacesContext.getCurrentInstance()
-					.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "µÇÂ¼´íÎó", "ÕÒ²»µ½¶ÔÓ¦µÄÓÃ»§ÃûºÍÃÜÂë£¡"));
+					.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ç™»å½•é”™è¯¯", "æ²¡æœ‰å¯¹åº”çš„ç”¨æˆ·åå’Œå¯†ç ï¼"));
 				return "login";
 			} else {
 				return "mainPage?faces-redirect=true";

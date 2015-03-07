@@ -1,9 +1,88 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
-
-	<ui:composition template="/templates/leftNavTemplate.xhtml">
+<!DOCTYPE html>
+	<ui:composition template="/templates/leftNavTemplate.xhtml"
+ 			xmlns="http://www.w3.org/1999/xhtml"
+		    xmlns:f="http://xmlns.jcp.org/jsf/core"
+		    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    		xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      		xmlns:p="http://primefaces.org/ui">
+		<ui:define name="leftHeader">
+		</ui:define>
+		<ui:define name="leftNavigation">
+			<h:form>
+				<p:commandButton value="增加产品" action="#{productBean.addProduct}" />
+			</h:form>
+			<p:separator />
+			<p:dataTable id="productNameListLeftNav" var="productName" value="#{productBean.distinctProductNames}" 
+			        selectionMode="single" selection="#{productBean.selectedProductName}" rowKey="'#{productName}" 
+			        emptyMessage="没有产品">
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="所有产品" />
+					</f:facet>
+					<h:outputText value="#{product.name}" style="align: left;" />
+				</p:column>
+			</p:dataTable>
+			
+		</ui:define>
+		
+		<ui:define name="content">
+			<p>content</p>
+		</ui:define>
+		
+		<ui:define name="dialogs">
+			<p:dialog header="增加新产品" id="newProdWindow" widgetVar="newProdDlg" position="center" modal="true">
+				<h:form>
+					<p:panelGrid columns="3" style="padding: 15px;">
+						<h:outputLabel for="prodNumber" value="产品编号" />
+						<p:inputText id="prodNumber" value="#{productBean.newProduct.productNumber}" label="prodNumber" />
+						<div />
+					
+						<h:outputLabel for="prodShortName" value="产品名称" />
+						<p:inputText id="prodShortName" value="#{productBean.newProduct.shortName}" label="prodShortName" />
+						<div />
+						
+						<h:outputLabel for="prodLongName" value="产品说明" />
+						<p:inputTextarea id="prodLongName" value="#{productBean.newProduct.longName}" label="prodLongName" />
+						<div />
+						
+						<h:outputLabel for="prodLevel" value="产品品级" />
+						<p:selectOneMenu value="#{productBean.newProduct.productLevel}" var="level">
+							<f:selectItem itemLabel="——请选择产品品级——" itemValue="" />
+							<f:selectItems value="#{productBean.productLevels}" var="productLevel"
+										itemLabel="#{productLevel.name}" itemValue="#{productLevel}" />
+							<p:column>
+								#{productLevel.name}
+							</p:column>
+						</p:selectOneMenu>
+						<p:commandButton value="管理产品品级" action="#{productBean.manageProductLevels}" />
+						
+					</p:panelGrid>
+					<p:commandButton value="提交" />
+					<p:commandButton value="取消" action="#{productBean.cancelAddingProduct}"/>
+				</h:form>
+			</p:dialog>
+			
+			<p:dialog header="产品品级管理" id="prodLevelWindow" widgetVar="prodLevelDlg" position="center" modal="true" width="500">
+				<h:form>
+					<p:dataTable var="productLevel" value="#{productBean.productLevels}" 
+					            selectionMode="single" selection="#{productBean.productLevel}" 
+					            rowKey="#{productLevel.id}" emptyMessage="没有产品品级">
+						<f:facet name="header">
+							<h:outputText value="所有的产品品级" />
+						</f:facet>
+						<p:column selectionMode="single" style="width:16px; text-align:center" />
+						<p:column>
+							<h:outputText value="#{productLevel.name}" />
+						</p:column>
+					</p:dataTable>
+					<p:panelGrid columns="3">
+						<h:outputLabel for="prodLevelName" value="产品品级" />
+						<p:inputText id="productLevelName" value="#{productBean.productLevelName}" label="productLevelName" />
+						<p:commandButton value="增加" action="#{productBean.addProductLevel}"/>
+					</p:panelGrid>
+				</h:form>
+			</p:dialog>
+		</ui:define>
+		
 	</ui:composition>
-</html>

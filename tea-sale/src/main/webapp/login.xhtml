@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"  
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
  
     <h:head>
     	<h:outputStylesheet library="css" name="login.css" />
@@ -15,17 +15,17 @@
         <div><h:graphicImage value="#{resource['images:logo.png']}" /></div>
 
 		<div id="errorMessage">
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<h:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
 		</div>    	
     	<div id="loginForm" class="loginForm">
 	    	<h:form>
 	    		<h:panelGrid id="loginGrid" columns="2" cellpadding="5">
-	    			<p:outputLabel for="username" value="用户名" styleClass="loginFormLabel" />
-	    			<p:inputText id="username" value="#{userSessionBean.username}" required="true" />
-	    			<p:outputLabel for="password" value="密码" styleClass="loginFormLabel" />
-	    			<p:password id="password" value="#{userSessionBean.password}" required="true" />
+	    			<h:outputLabel for="username" value="用户名" styleClass="loginFormLabel" />
+	    			<h:inputText id="username" value="#{userSessionBean.username}" required="true" />
+	    			<h:outputLabel for="password" value="密码" styleClass="loginFormLabel" />
+	    			<h:inputSecret id="password" value="#{userSessionBean.password}" required="true" />
 	    		</h:panelGrid>
-	    		<p:commandButton id="submitButton" value="登录" action="#{userSessionBean.login}" update="loginGrid" />
+	    		<h:commandButton value="登录" action="#{userSessionBean.login}" />
     		</h:form>
     	</div>
     	
