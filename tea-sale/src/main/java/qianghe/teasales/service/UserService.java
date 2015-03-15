@@ -1,4 +1,4 @@
-package qianghe.teasales.manager;
+package qianghe.teasales.service;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

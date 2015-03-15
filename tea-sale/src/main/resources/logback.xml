@@ -14,6 +14,9 @@
     <logger name="javax.faces.webapp" level="DEBUG">
         <appender-ref ref="STDOUT" />
     </logger> 
+    <logger name="org.primefaces" level="DEBUG">
+    	<appender-ref ref="STDOUT" />
+    </logger>
     <logger name="qianghe" level="DEBUG">
         <appender-ref ref="STDOUT" />
     </logger>

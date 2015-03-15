@@ -5,8 +5,29 @@
    <PROCESS-ITEM-OUTPUT ID="manageProducts::#admin#manageProducts.xhtml"
     NAME="output" PATH="/admin/manageProducts.xhtml"
     TARGET="rules:#admin#manageProducts.xhtml" TITLE="manageProducts" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageProductLevels::#admin#manageProductLevels.xhtml"
+    NAME="output1" PATH="/admin/manageProductLevels.xhtml"
+    TARGET="rules:#admin#manageProductLevels.xhtml"
+    TITLE="manageProductLevels" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageProductUnits::#admin#manageProductUnits.xhtml"
+    NAME="output2" PATH="/admin/manageProductUnits.xhtml"
+    TARGET="rules:#admin#manageProductUnits.xhtml"
+    TITLE="manageProductUnits" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="manageProductSpecs::#admin#manageProductSpecs.xhtml"
+    NAME="output3" PATH="/admin/manageProductSpecs.xhtml"
+    TARGET="rules:#admin#manageProductSpecs.xhtml"
+    TITLE="manageProductSpecs" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#admin#manageProducts.xhtml"
   PATH="/admin/manageProducts.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#manageProductLevels.xhtml"
+  PATH="/admin/manageProductLevels.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#manageProductSpecs.xhtml"
+  PATH="/admin/manageProductSpecs.xhtml" SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#manageProductUnits.xhtml"
+  PATH="/admin/manageProductUnits.xhtml" SHAPE="288,353,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

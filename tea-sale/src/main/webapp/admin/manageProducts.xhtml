@@ -30,7 +30,7 @@
 			<p>content</p>
 		</ui:define>
 		
-		<ui:define name="dialogs">
+		<ui:define name="dialogs" height="500px">
 			<p:dialog header="增加新产品" id="newProdWindow" widgetVar="newProdDlg" position="center" modal="true">
 				<h:form>
 					<p:panelGrid columns="3" style="padding: 15px;">
@@ -47,15 +47,14 @@
 						<div />
 						
 						<h:outputLabel for="prodLevel" value="产品品级" />
-						<p:selectOneMenu value="#{productBean.newProduct.productLevel}" var="level">
+						<p:selectOneMenu id="prodLevel" value="#{productBean.newProduct.productLevel}" var="level" label="prodLevel">
 							<f:selectItem itemLabel="——请选择产品品级——" itemValue="" />
-							<f:selectItems value="#{productBean.productLevels}" var="productLevel"
+							<f:selectItems value="#{productLevelBean.productAttrs}" var="productLevel"
 										itemLabel="#{productLevel.name}" itemValue="#{productLevel}" />
 							<p:column>
-								#{productLevel.name}
+								<span>#{productLevel.name}</span>
 							</p:column>
 						</p:selectOneMenu>
-						<p:commandButton value="管理产品品级" action="#{productBean.manageProductLevels}" />
 						
 					</p:panelGrid>
 					<p:commandButton value="提交" />
@@ -63,26 +62,6 @@
 				</h:form>
 			</p:dialog>
 			
-			<p:dialog header="产品品级管理" id="prodLevelWindow" widgetVar="prodLevelDlg" position="center" modal="true" width="500">
-				<h:form>
-					<p:dataTable var="productLevel" value="#{productBean.productLevels}" 
-					            selectionMode="single" selection="#{productBean.productLevel}" 
-					            rowKey="#{productLevel.id}" emptyMessage="没有产品品级">
-						<f:facet name="header">
-							<h:outputText value="所有的产品品级" />
-						</f:facet>
-						<p:column selectionMode="single" style="width:16px; text-align:center" />
-						<p:column>
-							<h:outputText value="#{productLevel.name}" />
-						</p:column>
-					</p:dataTable>
-					<p:panelGrid columns="3">
-						<h:outputLabel for="prodLevelName" value="产品品级" />
-						<p:inputText id="productLevelName" value="#{productBean.productLevelName}" label="productLevelName" />
-						<p:commandButton value="增加" action="#{productBean.addProductLevel}"/>
-					</p:panelGrid>
-				</h:form>
-			</p:dialog>
 		</ui:define>
 		
 	</ui:composition>

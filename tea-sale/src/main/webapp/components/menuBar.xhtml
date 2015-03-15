@@ -16,8 +16,11 @@
                     <p:menuitem value="客户消费明细" action="reportCustomerDetails" />
                 </p:submenu>
                 <p:submenu label="管理">
+                	<p:menuitem value="用户管理" action="manageUsers" />
                     <p:menuitem value="产品管理" action="manageProducts" />
-                    <p:menuitem value="用户管理" action="manageUsers" />
+                    <p:menuitem value="产品品级管理" action="manageProductLevels" />
+                    <p:menuitem value="产品单位管理" action="manageProductUnits" />
+                    <p:menuitem value="产品规格管理" action="manageProductSpecs" />
                 </p:submenu>
                 <f:facet name="options">
                     <p:commandButton id="logoutButton" value="退出" action="#{userSessionBean.logout}" />

@@ -6,6 +6,7 @@
 package qianghe.teasales.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "PRODUCT_SPEC")
 @NamedQueries( {
-    @NamedQuery(name = "ProductSpec.findAllProductSpecs", query = "SELECT p FROM ProductSpec p")
+    @NamedQuery(name = "ProductSpec.getAllProductSpecs", query = "SELECT p FROM ProductSpec p"),
+    @NamedQuery(name = "ProductSpec.getProductSpecByName", query = "SELECT p FROM ProductSpec p WHERE p.name = :name")
 } )
-public class ProductSpec implements Serializable {
+public class ProductSpec implements ProductAttribute, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,18 +36,22 @@ public class ProductSpec implements Serializable {
     @Column(name = "NAME", length = 32)
     private String name;
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

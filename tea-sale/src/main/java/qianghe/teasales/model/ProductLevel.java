@@ -25,7 +25,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProductLevel.getAllProductLevels", query = "SELECT p FROM ProductLevel p"),
     @NamedQuery(name = "ProductLevel.getProductLevelByName", query = "SELECT p FROM ProductLevel p WHERE p.name = :name")
 } )
-public class ProductLevel implements Serializable {
+public class ProductLevel implements ProductAttribute, Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,18 +35,22 @@ public class ProductLevel implements Serializable {
     @Column(name = "NAME", length = 32)
     private String name;
     
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }

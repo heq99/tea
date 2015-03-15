@@ -8,12 +8,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
-import qianghe.teasales.manager.ProductService;
 import qianghe.teasales.model.Product;
 import qianghe.teasales.model.ProductLevel;
+import qianghe.teasales.service.ProductService;
 
 @Named
 @ViewScoped
@@ -24,12 +23,6 @@ public class ProductBean implements Serializable {
 	@Inject
 	private ProductService productService;
 	
-	private List<ProductLevel> productLevels;
-	
-	private ProductLevel productLevel;
-	
-	private String productLevelName;
-	
 	private List<String> distinctProductNames;
 	
 	private String selectedProductName;
@@ -38,32 +31,9 @@ public class ProductBean implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		refreshProductLevels();
-		productLevel = new ProductLevel();
 		distinctProductNames = productService.getDistinctProductNames();
 		newProduct = new Product();
 		newProduct.setProductLevel(new ProductLevel());
-	}
-	
-	private void refreshProductLevels() {
-		productLevels = productService.getAllProductLevels();
-	}
-	
-	public void manageProductLevels() {
-		refreshProductLevels();
-		
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('prodLevelDlg').show();");
-	}
-	
-	public void addProductLevel() {
-		if (StringUtils.isNotEmpty(productLevelName)) {
-			if (!productService.existPoductLevelName(productLevelName)) {
-				ProductLevel prodLevel = new ProductLevel();
-				prodLevel.setName(productLevelName);
-				productService.saveProductLevel(prodLevel);
-			}
-		}
 	}
 	
 	public void addProduct() {
@@ -87,33 +57,6 @@ public class ProductBean implements Serializable {
 	
 	public void deleteProduct() {
 		
-	}
-
-
-	
-	
-	public List<ProductLevel> getProductLevels() {
-		return productLevels;
-	}
-
-	public void setProductLevels(List<ProductLevel> productLevels) {
-		this.productLevels = productLevels;
-	}
-
-	public ProductLevel getProductLevel() {
-		return productLevel;
-	}
-
-	public void setProductLevel(ProductLevel productLevel) {
-		this.productLevel = productLevel;
-	}
-
-	public String getProductLevelName() {
-		return productLevelName;
-	}
-
-	public void setProductLevelName(String productLevelName) {
-		this.productLevelName = productLevelName;
 	}
 
 	public List<String> getDistinctProductNames() {

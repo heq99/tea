@@ -2,7 +2,6 @@ package qianghe.teasales.bean;
 
 import java.io.Serializable;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -11,8 +10,8 @@ import javax.inject.Named;
 
 import org.apache.commons.lang3.StringUtils;
 
-import qianghe.teasales.manager.UserService;
 import qianghe.teasales.model.User;
+import qianghe.teasales.service.UserService;
 
 @Named
 @SessionScoped
@@ -28,11 +27,6 @@ public class UserSessionBean implements Serializable {
 	private String username;
 	
 	private String password;
-	
-	@PostConstruct
-	public void init() {
-		System.out.print("...\n");
-	}
 	
 	public String login() {
 		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {

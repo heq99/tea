@@ -1,4 +1,4 @@
-package qianghe.teasales.manager;
+package qianghe.teasales.service;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import qianghe.teasales.dao.ProductDao;
 import qianghe.teasales.model.Product;
-import qianghe.teasales.model.ProductLevel;
 
 @Stateless
 public class ProductService {
@@ -47,31 +46,4 @@ public class ProductService {
 		}
 	}
 	
-	public List<ProductLevel> getAllProductLevels() {
-		logger.debug("Start to get all product levels...");
-		try {
-			return productDao.getAllProductLevels();
-		} finally {
-			logger.debug("Finished to get all product levels.");
-		}
-	}
-	
-	public boolean existPoductLevelName(String name) {
-		logger.debug("Start to check if product level exists for name: " + name);
-		try {
-			ProductLevel productLevel = productDao.getProductLevelByName(name);
-			return productLevel != null;
-		} finally {
-			logger.debug("Finished to check if product level exists for name: " + name);
-		}
-	}
-	
-	public void saveProductLevel(ProductLevel prodLevel) {
-		logger.debug("Start to save product level: " + prodLevel.getName());
-		try {
-			productDao.saveProductLevel(prodLevel);
-		} finally {
-			logger.debug("Finished to save product level: " + prodLevel.getName());
-		}
-	}
 }
