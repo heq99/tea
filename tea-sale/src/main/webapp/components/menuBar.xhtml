@@ -1,14 +1,16 @@
-<!DOCTYPE html> 
-    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    				xmlns:f="http://xmlns.jcp.org/jsf/core"
-    				xmlns:h="http://xmlns.jcp.org/jsf/html"
-    				xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-    				xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                	xmlns:p="http://primefaces.org/ui">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition >
         <h:form>
             <p:menubar style="overflow: visible">
                 <p:submenu label="销售单">
-                    <p:menuitem value="开新销售单" action="newInvoice" />
+                    <p:menuitem value="开新销售单" action="orderForm" />
                     <p:menuitem value="查询销售单" action="searchInvoices" />
                 </p:submenu>
                 <p:submenu label="报表">
@@ -16,7 +18,10 @@
                     <p:menuitem value="客户消费明细" action="reportCustomerDetails" />
                 </p:submenu>
                 <p:submenu label="管理">
-                	<p:menuitem value="用户管理" action="manageUsers" />
+                	<p:menuitem value="系统用户管理" action="manageUsers" />
+                	<p:separator />
+                	<p:menuitem value="客户管理" action="manageCustomers" />
+                	<p:separator />
                     <p:menuitem value="产品管理" action="manageProducts" />
                     <p:menuitem value="产品品级管理" action="manageProductLevels" />
                     <p:menuitem value="产品单位管理" action="manageProductUnits" />
@@ -27,4 +32,5 @@
                 </f:facet>
             </p:menubar>
         </h:form>
-    </ui:composition> 
+    </ui:composition>
+</html>

@@ -9,6 +9,25 @@
     <navigation-rule>
     	<from-view-id>*</from-view-id>
     	<navigation-case>
+    		<from-outcome>mainPage</from-outcome>
+    		<to-view-id>/main/mainPage.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	<navigation-case>
+    		<from-outcome>orderForm</from-outcome>
+    		<to-view-id>/sales/orderForm.xhtml</to-view-id>
+    	</navigation-case>
+    	<navigation-case>
+    		<from-outcome>manageUsers</from-outcome>
+    		<to-view-id>/admin/manageUsers.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	<navigation-case>
+    		<from-outcome>manageCustomers</from-outcome>
+    		<to-view-id>/admin/manageCustomers.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	<navigation-case>
     		<from-outcome>manageProducts</from-outcome>
     		<to-view-id>/admin/manageProducts.xhtml</to-view-id>
     		<redirect />

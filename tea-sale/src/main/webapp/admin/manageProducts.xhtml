@@ -1,67 +1,153 @@
 <!DOCTYPE html>
-	<ui:composition template="/templates/leftNavTemplate.xhtml"
- 			xmlns="http://www.w3.org/1999/xhtml"
-		    xmlns:f="http://xmlns.jcp.org/jsf/core"
-		    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    		xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-    		xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      		xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/leftNavTemplate.xhtml">
 		<ui:define name="leftHeader">
 		</ui:define>
 		<ui:define name="leftNavigation">
-			<h:form>
-				<p:commandButton value="增加产品" action="#{productBean.addProduct}" />
+			<h:form id="distinctProductNamesForm">
+				<p:commandButton value="增加产品" actionListener="#{productBean.addProduct}" update=":productForm"/>
+				<p:separator />
+				<p:dataTable id="distinctProductNameList" var="productName" value="#{productBean.distinctProductNames}" 
+				        selectionMode="single" selection="#{productBean.selectedProductName}" rowKey="#{productName}" 
+				        scrollable="true" scrollHeight="500" emptyMessage="没有产品"> 	 	 	
+					<p:ajax event="rowSelect" listener="#{productBean.productNameSelected}" update=":productListForm:productWithNameTable" />
+					<p:ajax event="rowUnselect" listener="#{productBean.productNameUnselected()}" update=":productListForm:productWithNameTable" />
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="所有产品" />
+						</f:facet>
+						<h:outputText value="#{productName}" style="align: left;" />
+					</p:column>
+				</p:dataTable>
 			</h:form>
-			<p:separator />
-			<p:dataTable id="productNameListLeftNav" var="productName" value="#{productBean.distinctProductNames}" 
-			        selectionMode="single" selection="#{productBean.selectedProductName}" rowKey="'#{productName}" 
-			        emptyMessage="没有产品">
-				<p:column>
-					<f:facet name="header">
-						<h:outputText value="所有产品" />
-					</f:facet>
-					<h:outputText value="#{product.name}" style="align: left;" />
-				</p:column>
-			</p:dataTable>
 			
 		</ui:define>
 		
 		<ui:define name="content">
-			<p>content</p>
+			<h:form id="productListForm">
+				<p:dataTable id="productWithNameTable" var="product" value="#{productBean.productsWithName}"
+						selectionMode="single" selection="#{productBean.selectedProduct}" rowKey="#{product.id}"
+						scrollable="true" emptyMessage="请在左边选择产品" style="width: 80%">
+					<p:ajax event="rowSelect" update="@form"/>
+					<p:ajax event="rowUnselect" update="@form"/>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="产品编号"/>
+						</f:facet>
+						<h:outputText value="#{product.productNumber}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="产品名称"/>
+						</f:facet>
+						<h:outputText value="#{product.shortName}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="品级"/>
+						</f:facet>
+						<h:outputText value="#{product.productLevel.name}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="单位"/>
+						</f:facet>
+						<h:outputText value="#{product.productUnit.name}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="规格"/>
+						</f:facet>
+						<h:outputText value="#{product.productSpec.name}"/>
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="单价"/>
+						</f:facet>
+						￥<h:outputText value="#{product.price}"/>
+					</p:column>
+				</p:dataTable>
+				<p:separator/>
+				<p:commandButton id="editProductButton" value="修改" actionListener="#{productBean.editProduct()}"
+						disabled="#{empty productBean.selectedProduct}"
+						update=":productForm"/>
+				<p:commandButton id="deleteProductButton" value="删除" actionListener="#{productBean.deleteProduct()}"
+						disabled="#{empty productBean.selectedProduct}"
+						update="@form :distinctProductNamesForm"/>
+			</h:form>
 		</ui:define>
 		
-		<ui:define name="dialogs" height="500px">
-			<p:dialog header="增加新产品" id="newProdWindow" widgetVar="newProdDlg" position="center" modal="true">
-				<h:form>
-					<p:panelGrid columns="3" style="padding: 15px;">
+		<ui:define name="dialogs">
+			<p:dialog header="增加新产品" id="prodWindow" widgetVar="prodDlg" 
+					position="center" modal="true" resizable="false">
+				<h:form id="productForm">
+					<p:messages />
+					<p:panelGrid columns="2" style="padding: 15px;">
 						<h:outputLabel for="prodNumber" value="产品编号" />
-						<p:inputText id="prodNumber" value="#{productBean.newProduct.productNumber}" label="prodNumber" />
-						<div />
+						<p:inputText id="prodNumber" label="prodNumber" required="true"
+								value="#{productBean.productNumber}" />
 					
 						<h:outputLabel for="prodShortName" value="产品名称" />
-						<p:inputText id="prodShortName" value="#{productBean.newProduct.shortName}" label="prodShortName" />
-						<div />
+						<p:inputText id="prodShortName" label="prodShortName" required="true" 
+								value="#{productBean.productShortName}" />
 						
 						<h:outputLabel for="prodLongName" value="产品说明" />
-						<p:inputTextarea id="prodLongName" value="#{productBean.newProduct.longName}" label="prodLongName" />
-						<div />
+						<p:inputTextarea id="prodLongName" label="prodLongName" 
+								value="#{productBean.productLongName}" />
 						
 						<h:outputLabel for="prodLevel" value="产品品级" />
-						<p:selectOneMenu id="prodLevel" value="#{productBean.newProduct.productLevel}" var="level" label="prodLevel">
+						<p:selectOneMenu id="prodLevel" label="prodLevel" required="true"
+								value="#{productBean.productLevel}" var="level" converter="productLevelConverter">
 							<f:selectItem itemLabel="——请选择产品品级——" itemValue="" />
 							<f:selectItems value="#{productLevelBean.productAttrs}" var="productLevel"
 										itemLabel="#{productLevel.name}" itemValue="#{productLevel}" />
 							<p:column>
-								<span>#{productLevel.name}</span>
+								<h:outputText value="#{level.name}" />
 							</p:column>
 						</p:selectOneMenu>
 						
+						<h:outputLabel for="prodUnit" value="产品单位" />
+						<p:selectOneMenu id="prodUnit" label="prodUnit" required="true" 
+								value="#{productBean.productUnit}" var="unit" converter="productUnitConverter">
+							<f:selectItem itemLabel="——请选择产品单位——" itemValue="" />
+							<f:selectItems value="#{productUnitBean.productAttrs}" var="productUnit"
+										itemLabel="#{productUnit.name}" itemValue="#{productUnit}" />
+							<p:column>
+								<h:outputText value="#{unit.name}" />
+							</p:column>
+						</p:selectOneMenu>
+						
+						<h:outputLabel for="prodSpec" value="产品规格" />
+						<p:selectOneMenu id="prodSpec" label="prodSpec" required="true" 
+								value="#{productBean.productSpec}" var="spec" converter="productSpecConverter">
+							<f:selectItem itemLabel="——请选择产品规格——" itemValue="" />
+							<f:selectItems value="#{productSpecBean.productAttrs}" var="productSpec"
+										itemLabel="#{productSpec.name}" itemValue="#{productSpec}" />
+							<p:column>
+								<h:outputText value="#{spec.name}" />
+							</p:column>
+						</p:selectOneMenu>
+						
+						<h:outputLabel for="price" value="单价" />
+						<p:spinner id="price" value="#{productBean.productPrice}" prefix="￥" stepFactor="10" required="true"/>
 					</p:panelGrid>
-					<p:commandButton value="提交" />
-					<p:commandButton value="取消" action="#{productBean.cancelAddingProduct}"/>
+					
+					<p:separator />
+					
+					<p:commandButton value="提交" actionListener="#{productBean.saveProduct}"
+							update=":productForm :distinctProductNamesForm :productListForm"/>
+					<p:commandButton value="取消" actionListener="#{productBean.cancelProductForm}" immediate="true" 
+							update=":productForm"/>
 				</h:form>
 			</p:dialog>
 			
 		</ui:define>
 		
 	</ui:composition>
+</html>

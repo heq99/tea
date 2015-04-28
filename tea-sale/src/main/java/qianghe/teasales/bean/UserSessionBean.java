@@ -1,12 +1,16 @@
 package qianghe.teasales.bean;
 
 import java.io.Serializable;
+import java.security.Principal;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,20 +38,29 @@ public class UserSessionBean implements Serializable {
 				.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "登录错误", "用户名或密码不能为空！"));
 			return "login";
 		} else {
-			user = userService.loginUser(username, password);
-			if (user == null) {
+			HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			try {
+				request.login(username, password);
+			} catch (ServletException e) {
 				FacesContext.getCurrentInstance()
 					.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "登录错误", "没有对应的用户名和密码！"));
 				return "login";
-			} else {
-				return "mainPage?faces-redirect=true";
 			}
+			Principal principal = request.getUserPrincipal();
+			// user = userService.loginUser(username, password);
+			user = userService.getUserByLogin(principal.getName());
+			return "mainPage";
 		}
 	}
 	
 	public String logout() {
+		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		try {
+			request.logout();
+		} catch (ServletException e) {
+		}
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		return "login?faces-redirect=ture";
+		return "mainPage";
 	}
 
 	public String getUsername() {

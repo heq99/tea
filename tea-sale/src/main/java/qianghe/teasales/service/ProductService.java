@@ -46,4 +46,21 @@ public class ProductService {
 		}
 	}
 	
+	public boolean existProduct(String prodName, String levelName, String unitName, String specName) {
+		logger.debug("Start to check if product with attributes exists: " + prodName + " " + levelName + " " + unitName + " " + specName);
+		try {
+			Product product = productDao.getProductByAttributes(prodName, levelName, unitName, specName);
+			return product != null;
+		} finally {
+			logger.debug("Finished to check if product with attributes exists: " + prodName + " " + levelName + " " + unitName + " " + specName);
+		}
+	}
+	
+	public void saveProduct(Product product) {
+		productDao.saveProduct(product);
+	}
+	
+	public void deleteProduct(Product product) {
+		productDao.deleteProduct(product);
+	}
 }

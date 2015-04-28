@@ -12,14 +12,12 @@ import qianghe.teasales.model.UserRole;
 @Stateless
 public class UserDao extends AbstractDao {
 	
-	public User loginUser(String username, String password) throws NoResultException {
-		List<User> users = getEntityManager().createNamedQuery("loginUser", User.class)
-			.setParameter("username", username)
-			.setParameter("password", password)
-			.getResultList();
-		if (users.size() == 1) {
-			return users.get(0);
-		} else {
+	public User getUserByLogin(String login) {
+		try {
+			return getEntityManager().createNamedQuery("User.getUserByLogin", User.class)
+				.setParameter("username", login)
+				.getSingleResult();
+		} catch (NoResultException e) {
 			return null;
 		}
 	}
@@ -45,4 +43,21 @@ public class UserDao extends AbstractDao {
 		}
 	}
 		
+	public List<User> getAllUsers() {
+		return getEntityManager().createNamedQuery("User.getAllUsers", User.class).getResultList();
+	}
+	
+	public void saveUser(User user) {
+		EntityManager em = getEntityManager();
+		if (user.getId() != null) {
+			user = em.merge(user);
+		}
+		em.persist(user);
+	}
+	
+	public void deleteUser(User user) {
+		EntityManager em = getEntityManager();
+		user = em.merge(user);
+		em.remove(user);
+	}
 }

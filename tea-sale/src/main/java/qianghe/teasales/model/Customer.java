@@ -6,11 +6,14 @@
 package qianghe.teasales.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +22,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "CUSTOMER")
+@NamedQueries({
+	@NamedQuery(name = "Customer.getAllCustomers", query = "SELECT c FROM Customer c"),
+	@NamedQuery(name = "Customer.getCustomerByMemberId", query = "SELECT c FROM Customer c WHERE c.memberId = :memberId"),
+	@NamedQuery(name = "Customer.searchCustomer", query = "SELECT c FROM Customer c WHERE c.name like :name or c.phoneNumber like :phoneNo or c.email like :email")
+})
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,7 +34,7 @@ public class Customer implements Serializable {
     @Column(name = "ID")
     private Long id;
     
-    @Column(name = "MEMBER_ID", length = 64)
+    @Column(name = "MEMBER_ID", length = 64, unique = true)
     private String memberId;
     
     @Column(name = "NAME", length = 128)

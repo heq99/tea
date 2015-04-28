@@ -6,6 +6,7 @@
 package qianghe.teasales.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,10 +28,15 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name = "Product.getAllProducts", query = "SELECT p FROM Product p"),
 	@NamedQuery(name = "Product.getDistinctProductNames", query = "SELECT DISTINCT p.shortName FROM Product p"),
-	@NamedQuery(name = "Product.getProductsByName", query = "SELECT p FROM Product p WHERE p.shortName = :prodName")
+	@NamedQuery(name = "Product.getProductsByName", query = "SELECT p FROM Product p WHERE p.shortName = :prodName"),
+	@NamedQuery(name = "Product.getProductByAttributes", query = "SELECT p FROM Product p "
+			+ "WHERE p.shortName = :prodName AND p.productLevel.name = :levelName "
+			+ "AND p.productUnit.name = :unitName AND p.productSpec.name = :specName")
 })
 public class Product implements Serializable {
+	
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
@@ -60,8 +66,8 @@ public class Product implements Serializable {
     @JoinColumn(name="PRODUCT_SPEC_ID")
     private ProductSpec productSpec;
     
-    @Column(name = "PRICE")
-    private Double price;
+    @Column(name = "PRICE", precision=10, scale=2)
+    private BigDecimal price;
 
     public Long getId() {
         return id;
@@ -128,11 +134,11 @@ public class Product implements Serializable {
 		this.productSpec = productSpec;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

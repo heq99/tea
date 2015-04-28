@@ -4,7 +4,8 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
  
     <h:head>
     	<h:outputStylesheet library="css" name="login.css" />
@@ -14,20 +15,18 @@
     <h:body>
         <div><h:graphicImage value="#{resource['images:logo.png']}" /></div>
 
-		<div id="errorMessage">
-			<h:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-		</div>    	
-    	<div id="loginForm" class="loginForm">
-	    	<h:form>
-	    		<h:panelGrid id="loginGrid" columns="2" cellpadding="5">
-	    			<h:outputLabel for="username" value="用户名" styleClass="loginFormLabel" />
-	    			<h:inputText id="username" value="#{userSessionBean.username}" required="true" />
-	    			<h:outputLabel for="password" value="密码" styleClass="loginFormLabel" />
-	    			<h:inputSecret id="password" value="#{userSessionBean.password}" required="true" />
-	    		</h:panelGrid>
-	    		<h:commandButton value="登录" action="#{userSessionBean.login}" />
-    		</h:form>
-    	</div>
+    	<h:form id="loginForm" class="loginForm">
+			<p:messages id="messages" showSummary="false" showDetail="true" autoUpdate="true" closable="true" />
+    		<h:panelGrid id="loginGrid" columns="2" cellpadding="5">
+    			<h:outputLabel for="username" value="用户名" styleClass="loginFormLabel" />
+    			<p:inputText id="username" value="#{userSessionBean.username}" 
+    					required="true" requiredMessage="错误：用户名不能为空！"/>
+    			<h:outputLabel for="password" value="密码" styleClass="loginFormLabel" />
+    			<p:password id="password" value="#{userSessionBean.password}" 
+    					required="true" requiredMessage="错误：密码不能为空！"/>
+    		</h:panelGrid>
+    		<p:commandButton value="登录" action="#{userSessionBean.login}" update=":loginForm:messages"/>
+   		</h:form>
     	
     </h:body>
 </html>

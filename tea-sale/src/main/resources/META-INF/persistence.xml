@@ -13,6 +13,8 @@
     <class>qianghe.teasales.model.ProductLevel</class>
     <class>qianghe.teasales.model.ProductUnit</class>
     <class>qianghe.teasales.model.ProductSpec</class>
+    <class>qianghe.teasales.model.Order</class>
+    <class>qianghe.teasales.model.OrderItem</class>
     <properties>
       
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

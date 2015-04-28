@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"> 
+
+<ui:composition template="/templates/mainTemplate.xhtml">
+    <ui:define name="mainContent">
+    	<h:form id="orderListForm">
+    		<p:messages showDetail="false" autoUpdate="true" closable="true"/>
+    		<p:panel style="display: block; border: none; margin: 0 auto;">
+    			<p:scrollPanel scrollHeight="100%" mode="native" styleClass="orderTables">
+		    		<p:dataTable id="orderListTable" var="order" value="#{homePageBean.orders}"
+		    				selectionMode="single" selection="#{homePageBean.order}" rowKey="#{order.id}" 
+		    				emptyMessage="没有销售单">
+		    			<p:ajax event="rowSelect" update="@form"/>
+		    			<p:ajax event="rowUnselect" update="@form"/>
+		    			<p:column headerText="销售单号" style="width: 80px">
+		    				#{order.orderNumber}
+		    			</p:column>
+		    			<p:column headerText="客户姓名" style="width: 80px">
+		    				#{order.customer.name}
+		    			</p:column>
+		    			<p:column headerText="联系电话" style="width: 90px">
+		    				#{order.customer.phoneNumber}
+		    			</p:column>
+		    			<p:column headerText="销售渠道" style="width: 80px">
+		    				#{order.saleChannel}
+		    			</p:column>
+		    			<p:column headerText="购买时间" style="width: 80px">
+		    				#{order.placementDate}
+		    			</p:column>
+		    			<p:column headerText="合计" style="width: 80px">
+		    				#{order.totalAmount}
+		    			</p:column>
+		    			<p:column headerText="销售人员" style="width: 80px">
+		    				#{order.seller.name}
+		    			</p:column>
+		    			<p:column headerText="产品">
+		    				#{order.productSummary}
+		    			</p:column>
+					</p:dataTable>
+				</p:scrollPanel>
+			</p:panel>
+			
+			<p:panel styleClass="bottomPanel">
+				<p:commandButton value="开新销售单" action="orderForm"/>
+				<p:spacer width="20px"/>
+				<p:commandButton value="修改销售单" disabled="#{empty homePageBean.order}" oncomplete="PF('orderWidget').show()"
+						update="@form" resetValues="true"/>
+				<p:spacer width="20px"/>
+				<p:commandButton value="删除销售单" actionListener="#{homePageBean.deleteOrder}" disabled="#{empty homePageBean.order}" update="@form"/>
+			</p:panel>		
+    	</h:form>
+    </ui:define>
+    
+    <ui:define name="dialogs">
+    </ui:define>
+</ui:composition>
+
+</html>

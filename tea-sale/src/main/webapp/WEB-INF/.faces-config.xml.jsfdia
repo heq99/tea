@@ -2,32 +2,49 @@
 <PROCESS model-entity="JSFProcess">
  <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="mainPage::#main#mainPage.xhtml"
+    NAME="output" PATH="/main/mainPage.xhtml"
+    TARGET="rules:#main#mainPage.xhtml" TITLE="mainPage" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="orderForm::#sales#orderForm.xhtml"
+    NAME="output1" PATH="/sales/orderForm.xhtml"
+    TARGET="rules:#sales#orderForm.xhtml" TITLE="orderForm" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="manageUsers::#admin#manageUsers.xhtml"
+    NAME="output2" PATH="/admin/manageUsers.xhtml"
+    TARGET="rules:#admin#manageUsers.xhtml" TITLE="manageUsers" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT ID="manageProducts::#admin#manageProducts.xhtml"
-    NAME="output" PATH="/admin/manageProducts.xhtml"
+    NAME="output3" PATH="/admin/manageProducts.xhtml"
     TARGET="rules:#admin#manageProducts.xhtml" TITLE="manageProducts" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="manageProductLevels::#admin#manageProductLevels.xhtml"
-    NAME="output1" PATH="/admin/manageProductLevels.xhtml"
+    NAME="output4" PATH="/admin/manageProductLevels.xhtml"
     TARGET="rules:#admin#manageProductLevels.xhtml"
     TITLE="manageProductLevels" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="manageProductUnits::#admin#manageProductUnits.xhtml"
-    NAME="output2" PATH="/admin/manageProductUnits.xhtml"
+    NAME="output5" PATH="/admin/manageProductUnits.xhtml"
     TARGET="rules:#admin#manageProductUnits.xhtml"
     TITLE="manageProductUnits" model-entity="JSFProcessItemOutput"/>
    <PROCESS-ITEM-OUTPUT
     ID="manageProductSpecs::#admin#manageProductSpecs.xhtml"
-    NAME="output3" PATH="/admin/manageProductSpecs.xhtml"
+    NAME="output6" PATH="/admin/manageProductSpecs.xhtml"
     TARGET="rules:#admin#manageProductSpecs.xhtml"
     TITLE="manageProductSpecs" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#admin#manageProducts.xhtml"
-  PATH="/admin/manageProducts.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
- <PROCESS-ITEM NAME="rules:#admin#manageProductLevels.xhtml"
-  PATH="/admin/manageProductLevels.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/admin/manageProducts.xhtml" SHAPE="304,561,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#admin#manageProductSpecs.xhtml"
-  PATH="/admin/manageProductSpecs.xhtml" SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/admin/manageProductSpecs.xhtml" SHAPE="304,897,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#manageUsers.xhtml"
+  PATH="/admin/manageUsers.xhtml" SHAPE="304,337,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#manageProductLevels.xhtml"
+  PATH="/admin/manageProductLevels.xhtml" SHAPE="304,673,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#admin#manageCustomers.xhtml"
+  PATH="/admin/manageCustomers.xhtml" SHAPE="304,449,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#admin#manageProductUnits.xhtml"
-  PATH="/admin/manageProductUnits.xhtml" SHAPE="288,353,0,0" model-entity="JSFProcessGroup"/>
+  PATH="/admin/manageProductUnits.xhtml" SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#main#mainPage.xhtml"
+  PATH="/main/mainPage.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sales#orderForm.xhtml"
+  PATH="/sales/orderForm.xhtml" SHAPE="304,337,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

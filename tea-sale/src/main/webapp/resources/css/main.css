@@ -24,7 +24,15 @@
 	overflow: visible !important;
 }
 
+/*
+.ui-panelgrid-cell {
+	padding: 0 !important;
+}
 
+.ui-datatable thead th {
+	padding: 0 !important;
+}
+*/
 
 p {
 	font-size: 12px;
@@ -61,6 +69,50 @@ p {
 	display: inline;
 }
 
-#productNameListLeftNav th {
-	text-align: justify;
+.productAttrTable {
+	position: absolute;
+	top: 5px;
+	bottom: 75px;
+	display: block;
+	width: 500px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.userTable {
+	position: absolute;
+	top: 5px;
+	bottom: 75px;
+	display: block;
+	width: 650px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.orderTable {
+	position: absolute;
+	top: 5px;
+	bottom: 75px;
+	display: block;
+	width: 900px;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+input.noBorder {
+	border: 1px !important;
+	padding: 0 !important; 
+	box-shadow: 0 0 0 inset !important;
+}
+
+.bottomPanel {
+	position: absolute;
+	bottom: 5px;
+	width: 100%; 
+	height: 55px;
+	vertical-align: middle; 
+	text-align: center;
 }
