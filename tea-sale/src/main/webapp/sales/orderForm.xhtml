@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<ui:composition template="/templates/mainTemplate.xhtml">
+		<ui:define name="mainContent">
+			<h:form id="orderForm">
+				<p:panel id="customerPanel" header="客户信息" style="margin-bottom: 20px">
+					<p:outputLabel value="搜索"/>
+					<p:inputText value="#{orderBean.custSearchText}"/>
+					<p:commandButton value="搜索" actionListener="#{orderBean.searchCustomers}"/>
+					<p:commandButton value="新客户" />
+					
+					<p:spacer/>
+					
+					<p:panelGrid columns="6" style="width: 100%">
+						<p:outputLabel value="客户会号"/>
+						<p:inputText value="#{orderBean.customer.memberId}"/>
+						<p:outputLabel value="客户姓名"/>
+						<p:inputText value="#{orderBean.customer.name}"/>
+						<p:outputLabel value="联系电话"/>
+						<p:inputText value="#{orderBean.customer.phoneNumber}"/>						
+					</p:panelGrid>
+				</p:panel>
+				
+				<p:panel id="orderItemPanel" header="产品" style="margin-bottom: 20px">
+				
+				</p:panel>
+			</h:form>
+			
+		</ui:define>
+		
+		<ui:define name="dialogs">
+
+			<ui:include src="customerDialog.xhtml">
+				<ui:param name="callingForm" value=":orderForm:customerPanel"/>
+			</ui:include>
+
+	    	<p:dialog id="orderDlg" widgetVar="orderWidget" position="center" modal="true" resizable="false" width="1024">
+	    		<h:form id="inputOrderForm">
+	    			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
+	    			<p:panelGrid id="orderForm">
+						<p:row>
+							<p:column colspan="9">
+								<h2>之乎者也茶业            销售明细单</h2><p:spacer></p:spacer>单号： #{homePageBean.order.orderNumber}
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column style="width: 80px; text-align: center;">客户姓名</p:column>
+							<p:column style="width: 245px;">
+								<p:inputText style="width: 244px" styleClass="noBorder" value="#{homePageBean.order.customer.name}"/>
+							</p:column>
+							<p:column colspan="2" style="width: 80px; text-align: center;">购买时间</p:column>
+							<p:column colspan="3" style="width: 245px">
+								<p:inputText style="width: 244px" styleClass="noBorder" value="#{homePageBean.order.placementDate}"/>
+							</p:column>
+							<p:column>销售网点</p:column>
+							<p:column>
+								<p:inputText styleClass="fillCell" value="#{homePageBean.order.saleChannel}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>客户会号</p:column>
+							<p:column>
+								<p:inputText styleClass="fillCell" value="#{homePageBean.order.customer.memberId}"/>
+							</p:column>
+							<p:column colspan="2">联系电话</p:column>
+							<p:column colspan="3">
+								<p:inputText styleClass="fillCell" value="#{homePageBean.order.customer.phoneNumber}"/>
+							</p:column>
+							<p:column>发票需要</p:column>
+							<p:column>
+								<p:inputText styleClass="fillCell" value="#{homePageBean.order.invoiceRequired}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>客户要求</p:column>
+							<p:column colspan="6">
+								<p:inputText styleClass="fillCell" value="#{homePageBean.order.customerComment}"/>
+							</p:column>
+							<p:column>付款方式</p:column>
+							<p:column>
+								<p:inputText styleClass="fillCell" value="#{homePageBean.order.paymentMethod}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column colspan="9" style="padding: 0">
+					    		<p:dataTable id="orderItemsListTable" var="orderItem" value="#{homePageBean.order.orderItems}"
+					    				selectionMode="single" selection="#{homePageBean.orderItem}" rowKey="#{orderItem.id}" 
+					    				rowIndexVar="rowIndex" emptyMessage="没有产品">
+					    			<p:column headerText="序号" style="width: 80px">
+					    				#{rowIndex+1}
+					    			</p:column>
+					    			<p:column headerText="编号">
+					    				#{orderItem.product.productNumber}
+					    			</p:column>
+					    			<p:column headerText="名称">
+					    				#{orderItem.product.shortName}
+					    			</p:column>
+					    			<p:column headerText="品级">
+					    				#{orderItem.product.productLevel.name}
+					    			</p:column>
+					    			<p:column headerText="单位">
+					    				#{orderItem.product.productUnit.name}
+					    			</p:column>
+					    			<p:column headerText="规格">
+					    				#{orderItem.product.productSpec.name}
+					    			</p:column>
+					    			<p:column headerText="单价">
+					    				#{orderItem.product.price}
+					    			</p:column>
+					    			<p:column headerText="数量">
+					    				#{orderItem.quantity}
+					    			</p:column>
+					    			<p:column headerText="金额">
+					    				#{orderItem.totalAmount}
+					    			</p:column>
+					    			<p:column headerText="实收金额">
+					    				#{orderItem.actualAmount}
+					    			</p:column>
+					    		</p:dataTable>
+					    		<p:commandButton value="增加"/>
+					    		<p:commandButton value="删除"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>配送单号</p:column>
+							<p:column colspan="3">
+								<p:inputText value="#{homePageBean.order.dispatchNumber}"/>
+							</p:column>
+							<p:column>配送费用</p:column>
+							<p:column colspan="2">
+								<p:inputText value="#{homePageBean.order.dispatchFee}" style="width: 100px"/>元
+							</p:column>
+							<p:column>税金</p:column>
+							<p:column>
+								<p:inputText value="#{homePageBean.order.tax}"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>配送地址</p:column>
+							<p:column colspan="8">
+								<p:inputText value="#{orderBean.order.deliveryAddress}" style="width: 95%"/>
+							</p:column>
+						</p:row>
+						<p:row>
+							<p:column>小票单号</p:column>
+							<p:column colspan="2">
+								<p:inputText value="#{orderBean.order.stubNumber}"/>
+							</p:column>
+							<p:column>销售人</p:column>
+							<p:column>
+								<p:inputText value="#{orderBean.order.seller.name}" style="width: 100px" disabled="true"/>
+							</p:column>
+							<p:column colspan="2">本单合计</p:column>
+							<p:column colspan="2">
+								<p:inputText value="#{orderBean.order.totalAmount}"/>
+							</p:column>
+						</p:row>
+					</p:panelGrid>
+	    		</h:form>
+	    	</p:dialog>
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,3 @@
+<jboss-web>
+	<security-domain>TeaSales</security-domain>
+</jboss-web>
