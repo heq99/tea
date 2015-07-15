@@ -37,6 +37,25 @@ public class CustomerService {
 			logger.trace("Finished to get customer by id: " + id);
 		}
 	}
+
+    public Customer getCustomerByMemeberId(String memberId) {
+        logger.trace("Start to get customer by member id: " + memberId);
+        try {
+            return customerDao.getCustomerByMemberId(memberId);
+        } finally {
+            logger.trace("Finished to get customer by memeber id: " + memberId);
+        }
+    }
+
+	public boolean existCustomerMemberId(String memberId) {
+        logger.trace("Start to check if customer member id exists for: " + memberId);
+        try {
+            Customer customer = getCustomerByMemeberId(memberId);
+            return customer != null;
+        } finally {
+            logger.trace("Finished to check if customer member id exists for: " + memberId);
+        }
+    }
 	
 	public boolean existCustomer(String memberId, String custName, String telNo, String email) {
 		if (StringUtils.isNotEmpty(memberId)) {
@@ -78,23 +97,19 @@ public class CustomerService {
 		}
 	}
 	
-	public void deleteCustomer(Customer customer) throws TeaSalesException {
+	public void deleteCustomer(Customer customer) {
 		logger.trace("Start to delete customer: " + customer.getName());
 		try {
 			customerDao.deleteCustomer(customer);
-		} catch (Exception e) {
-			throw new TeaSalesException("删除客户的时候出错.", e);
 		} finally {
 			logger.trace("Finished to delete customer: " + customer.getName());
 		}
 	}
 	
-	public List<Customer> searchCustomer(String searchText) throws TeaSalesException {
+	public List<Customer> searchCustomer(String searchText) {
 		logger.trace("Start to search customer: searchText = " + searchText);
 		try {
 			return customerDao.searchCustomer(searchText, searchText, searchText);
-		} catch (Exception e) {
-			throw new TeaSalesException("搜索客户时出错.", e);
 		} finally {
 			logger.trace("Finished to search cusotmer: searchText = " + searchText);
 		}

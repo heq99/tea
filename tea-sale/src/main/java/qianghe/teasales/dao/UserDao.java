@@ -14,7 +14,7 @@ public class UserDao extends AbstractDao {
 	
 	public User getUserByLogin(String login) {
 		try {
-			return getEntityManager().createNamedQuery("User.getUserByLogin", User.class)
+			return em.createNamedQuery("User.getUserByLogin", User.class)
 				.setParameter("username", login)
 				.getSingleResult();
 		} catch (NoResultException e) {
@@ -26,7 +26,6 @@ public class UserDao extends AbstractDao {
 	 * This method is risky, it needs to be removed. 
 	 */
 	public void checkOrCreateAdminUser() {
-		EntityManager em = getEntityManager();
 		List<User> users = em.createQuery("SELECT u FROM User u WHERE u.login=:adminName", User.class)
 				.setParameter("adminName", "admin").getResultList();
 		if (users != null && users.size() == 1) {
@@ -44,11 +43,10 @@ public class UserDao extends AbstractDao {
 	}
 		
 	public List<User> getAllUsers() {
-		return getEntityManager().createNamedQuery("User.getAllUsers", User.class).getResultList();
+		return em.createNamedQuery("User.getAllUsers", User.class).getResultList();
 	}
 	
 	public void saveUser(User user) {
-		EntityManager em = getEntityManager();
 		if (user.getId() != null) {
 			user = em.merge(user);
 		}
@@ -56,7 +54,6 @@ public class UserDao extends AbstractDao {
 	}
 	
 	public void deleteUser(User user) {
-		EntityManager em = getEntityManager();
 		user = em.merge(user);
 		em.remove(user);
 	}

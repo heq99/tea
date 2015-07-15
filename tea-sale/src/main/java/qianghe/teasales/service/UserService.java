@@ -37,7 +37,7 @@ public class UserService {
 		}
 	}
 	
-	private boolean existUserLogin(String login) {
+	public boolean existUserLogin(String login) {
 		logger.trace("Start to check if user login exists for: " + login);
 		try {
 			User user = getUserByLogin(login);
@@ -47,30 +47,19 @@ public class UserService {
 		}
 	}
 	
-	public void saveUser(User user) throws TeaSalesException {
+	public void saveUser(User user) {
 		logger.trace("Start to save user: " + user.getLogin());
 		try {
-			if (user.getId() == null) {
-				if (existUserLogin(user.getLogin())) {
-					throw new TeaSalesException("用户登录名已经被别人用了。");
-				}
-			}
-			try {
-				userDao.saveUser(user);
-			} catch (Exception e) {
-				throw new TeaSalesException("保存系统用户时出错。", e);
-			}
+			userDao.saveUser(user);
 		} finally {
 			logger.trace("Finished to save user: " + user.getLogin());
 		}
 	}
 	
-	public void deleteUser(User user) throws TeaSalesException {
+	public void deleteUser(User user) {
 		logger.trace("Start to delete user: " + user.getLogin());
 		try {
 			userDao.deleteUser(user);
-		} catch (Exception e) {
-			throw new TeaSalesException("Can't delete user!", e);
 		} finally {
 			logger.trace("Finished to delete user: " + user.getLogin());
 		}

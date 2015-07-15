@@ -2,15 +2,16 @@ package qianghe.teasales.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 public class AbstractDao {
 	
-	@PersistenceUnit
-	protected EntityManagerFactory emf;
+	@PersistenceContext
+	protected EntityManager em;
 	
 	protected EntityManager getEntityManager() {
-		return emf.createEntityManager();
+		return em;
 	}
 
 }

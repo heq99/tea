@@ -29,6 +29,8 @@ public class CustomerBean implements Serializable {
 	
 	private Customer customer;
 
+	private String custSearchText;
+
 	@PostConstruct
 	public void init() {
 		loadAllCustomers();
@@ -41,28 +43,20 @@ public class CustomerBean implements Serializable {
 	public void addCustomer() {
 		customer = new Customer();
 	}
-	
-	public void saveCustomer() {
-		try {
-			customerService.saveCustomer(customer);
-			customer = null;
-			loadAllCustomers();
-			RequestContext.getCurrentInstance().execute("PF('customerWidget').hide()");
-		} catch (TeaSalesException e) {
-			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getCause().getMessage(), "保存客户出错"));
-		}
+
+	public void searchCustomers() {
+			allCustomers = customerService.searchCustomer(custSearchText);
+	}
+
+	public void saveCustomer() throws TeaSalesException {
+		customerService.saveCustomer(customer);
+		loadAllCustomers();
 	}
 	
 	public void deleteCustomer() {
-		try {
-			customerService.deleteCustomer(customer);
-			customer = null;
-			loadAllCustomers();
-		} catch (TeaSalesException e) {
-			FacesContext.getCurrentInstance().addMessage(null, 
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getCause().getMessage(), "删除客户出错"));
-		}
+		customerService.deleteCustomer(customer);
+		customer = null;
+		loadAllCustomers();
 	}
 
 	public List<Customer> getAllCustomers() {
@@ -79,5 +73,13 @@ public class CustomerBean implements Serializable {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public String getCustSearchText() {
+		return custSearchText;
+	}
+
+	public void setCustSearchText(String custSearchText) {
+		this.custSearchText = custSearchText;
 	}
 }

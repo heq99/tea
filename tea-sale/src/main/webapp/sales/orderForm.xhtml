@@ -12,10 +12,15 @@
 			<h:form id="orderForm">
 				<p:panel id="customerPanel" header="客户信息" style="margin-bottom: 20px">
 					<p:outputLabel value="搜索"/>
-					<p:inputText value="#{orderBean.custSearchText}"/>
-					<p:commandButton value="搜索" actionListener="#{orderBean.searchCustomers}"/>
-					<p:commandButton value="新客户" />
-					
+					<p:inputText value="#{customerBean.custSearchText}"/>
+					<p:commandButton value="搜索" actionListener="#{customerBean.searchCustomers}"
+									 update=":searchResult"
+							         oncomplete="PF('selectCustomerWidget').show()"/>
+					<p:commandButton value="新客户" actionListener="#{orderBean.addCustomer}"
+                                     update=":customerFormDlg"
+                                     oncomplete="PF('customerFormWidget').show()"
+									 resetValues="true"/>
+
 					<p:spacer/>
 					
 					<p:panelGrid columns="6" style="width: 100%">
@@ -24,23 +29,169 @@
 						<p:outputLabel value="客户姓名"/>
 						<p:inputText value="#{orderBean.customer.name}"/>
 						<p:outputLabel value="联系电话"/>
-						<p:inputText value="#{orderBean.customer.phoneNumber}"/>						
+						<p:inputText value="#{orderBean.customer.phoneNumber}"/>
+
+						<p:outputLabel value="销售网点"/>
+                        <p:selectOneMenu value="#{orderBean.order.saleChannel}">
+                            <f:selectItem itemLabel="——请选择销售网点——" itemValue=""/>
+                            <f:selectItem itemLabel="实体店" itemValue="实体店"/>
+                            <f:selectItem itemLabel="网上" itemValue="网上"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="购买时间"/>
+                        <p:calendar value="#{orderBean.order.placementDate}" showOn="button" />
+                        <p:outputLabel value="发票需要"/>
+                        <p:selectBooleanButton value="#{orderBean.order.invoiceRequired}"
+                                               onLabel="需要" offLabel="不需要"
+                                               onIcon="ui-icon-check" offIcon="ui-icon-close"/>
+
+
 					</p:panelGrid>
 				</p:panel>
 				
 				<p:panel id="orderItemPanel" header="产品" style="margin-bottom: 20px">
-				
+				    <p:dataTable id="orderItemList" var="orderItem" value="#{orderBean.order.orderItems}"
+                                 selectionMode="single" selection="#{orderBean.orderItem}" rowKey="#{orderItem.product.id}" rowIndexVar="rowIndex"
+                                 emptyMessage="还没有选择产品" scrollable="true">
+                        <p:ajax event="rowSelect" update="@form"/>
+                        <p:ajax event="rowUnselect" update="@form"/>
+                        <p:column headerText="序号">
+                            #{rowIndex + 1}
+                        </p:column>
+                        <p:column headerText="产品编号">
+                            #{orderItem.product.productNumber}
+                        </p:column>
+                        <p:column headerText="名称">
+                            #{orderItem.product.shortName}
+                        </p:column>
+                        <p:column headerText="品级">
+                            #{orderItem.product.productLevel.name}
+                        </p:column>
+                        <p:column headerText="单位">
+                            #{orderItem.product.productUnit.name}
+                        </p:column>
+                        <p:column headerText="规格">
+                            #{orderItem.product.productSpec.name}
+                        </p:column>
+                        <p:column headerText="单价">
+                            #{orderItem.product.price}
+                        </p:column>
+                        <p:column headerText="数量">
+                            #{orderItem.quantity}
+                        </p:column>
+                        <p:column headerText="金额">
+                            #{orderItem.totalAmount}
+                        </p:column>
+                        <p:column headerText="实收金额">
+                            #{orderItem.actualAmount}
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton value="增加" actionListener="#{orderBean.addOrderItem}"
+                                     update=":orderItemDlg"
+                                     oncomplete="PF('orderItemWidget').show()"/>
+                    <p:commandButton value="修改" actionListener="#{orderBean.editOrderItem}"
+							         disabled="#{empty orderBean.orderItem}"
+							         update=":orderItemDlg"
+							         oncomplete="PF('orderItemWidget').show()"/>
+                    <p:commandButton value="删除" actionListener="#{orderBean.deleteOrderItem}"
+							         disabled="#{empty orderBean.orderItem}"
+                                     update="@form"/>
 				</p:panel>
+                <p:commandButton value="保存订单" action="#{orderBean.saveOrder}"/>
 			</h:form>
 			
 		</ui:define>
 		
 		<ui:define name="dialogs">
 
-			<ui:include src="customerDialog.xhtml">
-				<ui:param name="callingForm" value=":orderForm:customerPanel"/>
-			</ui:include>
+            <p:dialog id="selectCustomerDlg" widgetVar="selectCustomerWidget" position="center" modal="true" resizable="false"
+					style="width: 800px">
+				<h:form id="searchResult">
+					<ui:include src="../components/customerList.xhtml">
+						<ui:param name="rowSelect" value=":searchResult"/>
+						<ui:param name="rowUnselect" value=":searchResult"/>
+					</ui:include>
+					<p:commandButton value="选择" actionListener="#{orderBean.selectCustomer}"
+							update=":orderForm:customerPanel" oncomplete="PF('selectCustomerWidget').hide()"/>
+					<p:commandButton value="取消" immediate="true" oncomplete="PF('selectCustomerWidget').hide()"/>
+				</h:form>
+            </p:dialog>
 
+            <p:dialog id="customerFormDlg" widgetVar="customerFormWidget" position="center" modal="true" resizable="false"
+                      style="width: 800px">
+				<h:form id="customerForm">
+					<p:messages id="messages" showDetails="false" autoUpdate="true" closable="true"/>
+
+					<ui:include src="../components/customerForm.xhtml">
+                        <ui:param name="customerBean" value="#{orderBean}"/>
+                    </ui:include>
+
+					<p:commandButton value="保存" actionListener="#{orderBean.saveAndSelectCustomer}"
+									 update=":orderForm:customerPanel" oncomplete="PF('customerFormWidget').hide()"/>
+					<p:commandButton value="取消" immediate="true" oncomplete="PF('customerFormWidget').hide()"/>
+				</h:form>
+            </p:dialog>
+
+			<p:dialog id="orderItemDlg" widgetVar="orderItemWidget" position="center" modal="true" resizable="false"
+					  style="width: 800px">
+				<h:form id="orderItemForm">
+					<p:messages showDetail="false" autoUpdate="true" closable="true"/>
+					<p:panelGrid columns="2">
+						<p:outputLabel for="productName" value="产品名称"/>
+						<p:selectOneMenu id="productName" var="productName" value="#{orderBean.selectedProductName}">
+                            <p:ajax listener="#{orderBean.productNameSelected}" update="@form"/>
+							<f:selectItem itemLabel="——请选择产品名称——" itemValue=""/>
+							<f:selectItems value="#{orderBean.allProductNames}" var="productName"
+                                           itemLabel="#{productName}" itemValue="#{productName}"/>
+							<p:column>
+								<h:outputText value="#{productName}"/>
+							</p:column>
+						</p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:dataTable id="availableProducts" var="product" value="#{orderBean.productsWithName}"
+                                 selectionMode="single" selection="#{orderBean.orderItem.product}" rowKey="#{product.id}"
+                                 scrollable="true" emptyMessage="没有这种产品">
+
+						<p:ajax event="rowSelect" update="@form"/>
+						<p:ajax event="rowUnselect" update="@form"/>
+
+                        <p:column headerText="产品编号">
+                            #{product.productNumber}
+                        </p:column>
+                        <p:column headerText="产品名称">
+                            #{product.shortName}
+                        </p:column>
+                        <p:column headerText="品级">
+                            #{product.productLevel.name}
+                        </p:column>
+                        <p:column headerText="单位">
+                            #{product.productUnit.name}
+                        </p:column>
+                        <p:column headerText="规格">
+                            #{product.productSpec.name}
+                        </p:column>
+                        <p:column headerText="单价">
+                            ￥#{product.price}
+                        </p:column>
+                    </p:dataTable>
+                    <p:panelGrid columns="2">
+                        <p:outputLabel for="quantity" value="数量"/>
+                        <p:inputText id="quantity" value="#{orderBean.orderItem.quantity}">
+                            <p:ajax update="@form"/>
+                        </p:inputText>
+
+                        <h:outputText value="应收金额"/>
+                        <h:outputText value="#{orderBean.orderItem.quantity * orderBean.orderItem.product.price}"/>
+
+                        <p:outputLabel for="actualAmount" value="实收金额"/>
+                        <p:inputText id="actualAmount" value="#{orderBean.orderItem.actualAmount}"/>
+                    </p:panelGrid>
+					<p:commandButton id="selectBtn" value="选择" disabled="#{empty orderBean.orderItem.product}"
+                            actionListener="#{orderBean.saveOrderItem}" oncomplete="PF('orderItemWidget').hide()"
+                            update=":orderForm:orderItemList"/>
+					<p:commandButton id="canelBtn" value="取消" oncomplete="PF('orderItemWidget').hide()"/>
+				</h:form>
+			</p:dialog>
+<!--
 	    	<p:dialog id="orderDlg" widgetVar="orderWidget" position="center" modal="true" resizable="false" width="1024">
 	    		<h:form id="inputOrderForm">
 	    			<p:messages id="messages" showDetail="false" autoUpdate="true" closable="true"/>
@@ -165,6 +316,7 @@
 					</p:panelGrid>
 	    		</h:form>
 	    	</p:dialog>
+-->
 		</ui:define>
 	</ui:composition>
 </html>

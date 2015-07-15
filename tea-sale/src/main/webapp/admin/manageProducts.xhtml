@@ -90,7 +90,7 @@
 					<p:messages />
 					<p:panelGrid columns="2" style="padding: 15px;">
 						<h:outputLabel for="prodNumber" value="产品编号" />
-						<p:inputText id="prodNumber" label="prodNumber" required="true"
+						<p:inputText id="prodNumber" label="prodNumber" 
 								value="#{productBean.productNumber}" />
 					
 						<h:outputLabel for="prodShortName" value="产品名称" />
@@ -102,7 +102,7 @@
 								value="#{productBean.productLongName}" />
 						
 						<h:outputLabel for="prodLevel" value="产品品级" />
-						<p:selectOneMenu id="prodLevel" label="prodLevel" required="true"
+						<p:selectOneMenu id="prodLevel" label="prodLevel"
 								value="#{productBean.productLevel}" var="level" converter="productLevelConverter">
 							<f:selectItem itemLabel="——请选择产品品级——" itemValue="" />
 							<f:selectItems value="#{productLevelBean.productAttrs}" var="productLevel"
@@ -113,7 +113,7 @@
 						</p:selectOneMenu>
 						
 						<h:outputLabel for="prodUnit" value="产品单位" />
-						<p:selectOneMenu id="prodUnit" label="prodUnit" required="true" 
+						<p:selectOneMenu id="prodUnit" label="prodUnit"
 								value="#{productBean.productUnit}" var="unit" converter="productUnitConverter">
 							<f:selectItem itemLabel="——请选择产品单位——" itemValue="" />
 							<f:selectItems value="#{productUnitBean.productAttrs}" var="productUnit"
@@ -124,7 +124,7 @@
 						</p:selectOneMenu>
 						
 						<h:outputLabel for="prodSpec" value="产品规格" />
-						<p:selectOneMenu id="prodSpec" label="prodSpec" required="true" 
+						<p:selectOneMenu id="prodSpec" label="prodSpec"
 								value="#{productBean.productSpec}" var="spec" converter="productSpecConverter">
 							<f:selectItem itemLabel="——请选择产品规格——" itemValue="" />
 							<f:selectItems value="#{productSpecBean.productAttrs}" var="productSpec"

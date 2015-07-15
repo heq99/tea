@@ -1,0 +1,24 @@
+body {
+	background: url("#{resource['default:images/background.jpg']}")  no-repeat fixed center;
+    background-size: 100% 100%;
+}
+
+.logo {
+    display: block;
+    width: 263px;
+    margin: 0 auto;
+}
+
+.login-form {
+    display: block;
+    width: 350px;
+    margin: 20px auto;
+}
+
+.login-form-label {
+    display: block;
+	color: #900000;
+	font-weight: bold;
+	width: 80px;
+}
+label:after { content: ": " }

@@ -16,6 +16,7 @@
     	<navigation-case>
     		<from-outcome>orderForm</from-outcome>
     		<to-view-id>/sales/orderForm.xhtml</to-view-id>
+			<redirect />
     	</navigation-case>
     	<navigation-case>
     		<from-outcome>manageUsers</from-outcome>

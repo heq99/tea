@@ -2,13 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition >
         <h:form>
-            <p:menubar style="overflow: visible">
+            <p:menubar styleClass="menubar">
                 <p:submenu label="销售单">
                     <p:menuitem value="开新销售单" action="orderForm" />
                     <p:menuitem value="查询销售单" action="searchInvoices" />
@@ -28,6 +27,8 @@
                     <p:menuitem value="产品规格管理" action="manageProductSpecs" />
                 </p:submenu>
                 <f:facet name="options">
+                    <h:outputText value="欢迎您：#{userSessionBean.user.name}" styleClass="welcome-msg"/>
+                    <p:spacer width="10px"/>
                     <p:commandButton id="logoutButton" value="退出" action="#{userSessionBean.logout}" />
                 </f:facet>
             </p:menubar>

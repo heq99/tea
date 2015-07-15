@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+
+    <p:dataTable styleClass="customer-table" var="customer" value="#{customerBean.allCustomers}"
+                 selectionMode="single" selection="#{customerBean.customer}" rowKey="#{customer.id}"
+                 emptyMessage="没有客户">
+        <p:ajax event="rowSelect" update="#{rowSelectUpdate}"/>
+        <p:ajax event="rowUnselect" update="#{rowUnselectUpdate}"/>
+        <p:column headerText="会员编号" style="width: 100px">
+            #{customer.memberId}
+        </p:column>
+        <p:column headerText="会员名称" style="width: 100px">
+            #{customer.name}
+        </p:column>
+        <p:column headerText="联系电话" style="width: 100px">
+            #{customer.phoneNumber}
+        </p:column>
+        <p:column headerText="地址">
+            #{customer.address}
+        </p:column>
+        <p:column headerText="电子邮件" style="width: 300px">
+            #{customer.email}
+        </p:column>
+    </p:dataTable>
+
+</html>

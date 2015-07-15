@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+
+	<p:panelGrid columns="3">
+		<p:outputLabel for="memberId" value="会员编号"/>
+		<p:inputText id="memberId" value="#{customerBean.customer.memberId}" required="true" validator="customerMemberIdValidator"/>
+		<p:message for="memberId"/>
+
+		<p:outputLabel for="name" value="姓名"/>
+		<p:inputText id="name" value="#{customerBean.customer.name}" required="true"/>
+		<p:message for="name"/>
+
+		<p:outputLabel for="phoneNumber"  value="联系电话"/>
+		<p:inputText id="phoneNumber" value="#{customerBean.customer.phoneNumber}"/>
+		<p:message for="phoneNumber" />
+
+		<p:outputLabel for="email" value="电子邮件"/>
+		<p:inputText id="email" value="#{customerBean.customer.email}"/>
+		<p:message for="email" />
+
+		<p:outputLabel for="address" value="地址"/>
+		<p:inputText id="address" value="#{customerBean.customer.address}"/>
+		<p:message for="address" />
+	</p:panelGrid>
+</html>

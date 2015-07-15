@@ -7,8 +7,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"> 
 <h:head>
- 	<h:outputStylesheet library="css" name="main.css" />
-  	<link href="#{resource['images:favicon.jpg']}" rel="shortcut icon" type="image/x-icon" />
+  	<link href="#{resource['default:images/favicon.jpg']}" rel="shortcut icon" type="image/x-icon" />
     <title>知乎者也</title>
 	<ui:insert name="htmlHead">
 	</ui:insert>
@@ -18,34 +17,39 @@
 
 <h:body>
 
+    <f:facet name="last">
+        <h:outputStylesheet library="default" name="css/main.css" />
+    </f:facet>
+
     <p:growl id="messages" />
 
-    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+    <div class="header">
+        <ui:insert name="header">
+            <ui:include src="/components/header.xhtml" />
+        </ui:insert>
+    </div>
 
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="172" resizable="false">
-		    <ui:insert name="header">
-		    	<ui:include src="/components/header.xhtml" />
-    		</ui:insert>
-		</p:layoutUnit>
-		<p:layoutUnit position="center">
-			<ui:insert name="mainContent">
-				Main Content
-			</ui:insert>
-		</p:layoutUnit>
-		<p:layoutUnit position="south" size="110" resizable="false">
-			<ui:insert name="footer">
-				<ui:include src="/components/footer.xhtml" />
-			</ui:insert>
-		</p:layoutUnit>
-	</p:layout>
-	
+    <div class="content">
+        <ui:insert name="mainContent">
+        </ui:insert>
+    </div>
+
+    <div class="footer">
+        <ui:insert name="footer">
+            <ui:include src="/components/footer.xhtml" />
+        </ui:insert>
+    </div>
+
 	<ui:insert name="dialogs">
 	</ui:insert>
-	<p:dialog id="statusIcon" widgetVar="statusDialog" modal="true" 
+	<p:dialog id="statusWindowModal" widgetVar="statusDialogModal" modal="true"
 			draggable="false" closable="false" resizable="false" showHeader="false">
-    	<p:graphicImage library="images" name="ajax-loading.gif" />
+    	<p:graphicImage library="default" name="images/ajax-loading.gif" />
 	</p:dialog>
+    <p:dialog id="statusWindowNonModal" widgetVar="statusDialogNonModal" modal="true"
+              draggable="false" closable="false" resizable="false" showHeader="false">
+        <p:graphicImage library="default" name="images/ajax-loading.gif" />
+    </p:dialog>
 </h:body>
 
 </f:view> 
